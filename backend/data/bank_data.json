@@ -1,0 +1,92 @@
+{
+  "users": {
+    "john@test.com": {
+      "id": "2219443933",
+      "first_name": "John",
+      "last_name": "Doe",
+      "email": "john@test.com",
+      "phone": "08012345678",
+      "bvn": "12345678901",
+      "password": "$2b$12$BmzYlcpWwfVAHhw11rZuDuN0L0w/DaxJvZ/RcWCxpBkaIYQ4Jkw.6",
+      "account_number": "1112290092",
+      "balance": 11.0,
+      "cards": [],
+      "created_at": "2026-05-08T23:23:12.472298",
+      "dark_mode": false,
+      "transfer_count": 2
+    },
+    "vincent070840@gmail.com": {
+      "id": "3007918505",
+      "first_name": "vincent",
+      "last_name": "Doe",
+      "email": "vincent070840@gmail.com",
+      "phone": "08012345678",
+      "bvn": "12345678901",
+      "password": "$2b$12$m8e4XeNMlMvOA46l26lSquIybLd6cACTAiph8KyZH7A.SPWC31pt6",
+      "account_number": "6853696491",
+      "balance": 5000.0,
+      "cards": [],
+      "created_at": "2026-06-25T11:05:56.540487",
+      "dark_mode": false,
+      "transfer_count": 0
+    }
+  },
+  "transactions": [
+    {
+      "id": "7549224025",
+      "user_id": "2219443933",
+      "type": "credit",
+      "amount": 5000.0,
+      "description": "Welcome Bonus",
+      "balance_after": 5000.0,
+      "timestamp": "2026-05-08T23:23:12.472298",
+      "status": "completed"
+    },
+    {
+      "id": "8775182849",
+      "user_id": "2219443933",
+      "type": "interbank_transfer",
+      "amount": -2888.0,
+      "charge": 50,
+      "description": "Transfer to 2352917081 (United Bank for Africa (UBA))",
+      "recipient_account": "2352917081",
+      "recipient_name": "FATIMAT CHUKWUMA",
+      "bank": "United Bank for Africa (UBA)",
+      "bank_code": "033",
+      "balance_after": 2062.0,
+      "timestamp": "2026-05-09T00:36:18.593357",
+      "status": "completed"
+    },
+    {
+      "id": "1356730797",
+      "user_id": "2219443933",
+      "type": "interbank_transfer",
+      "amount": -2001.0,
+      "charge": 50,
+      "description": "Transfer to 2352917081 (United Bank for Africa (UBA))",
+      "recipient_account": "2352917081",
+      "recipient_name": "FATIMAT CHUKWUMA",
+      "bank": "United Bank for Africa (UBA)",
+      "bank_code": "033",
+      "balance_after": 11.0,
+      "timestamp": "2026-05-09T00:38:54.229471",
+      "status": "completed"
+    },
+    {
+      "id": "2226241441",
+      "user_id": "3007918505",
+      "type": "credit",
+      "amount": 5000.0,
+      "description": "Welcome Bonus",
+      "balance_after": 5000.0,
+      "timestamp": "2026-06-25T11:05:56.540487",
+      "status": "completed"
+    }
+  ],
+  "owner": {
+    "account_number": "9999999999",
+    "name": "Bank Owner",
+    "balance": 100.0,
+    "total_charges_collected": 100.0
+  }
+}

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NaijaBank - Digital Banking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0066FF',
+                        secondary: '#00C853',
+                        accent: '#FF6D00',
+                        dark: '#0F172A',
+                        'dark-card': '#1E293B',
+                        'dark-border': '#334155'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-gray-50 text-gray-900 transition-colors duration-300">
+    
+    <div id="authScreen" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary via-blue-600 to-blue-800 p-4">
+        <div class="w-full max-w-md">
+            <div class="text-center mb-8">
+                <div class="w-20 h-20 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-2xl">
+                    <i class="fas fa-university text-primary text-3xl"></i>
+                </div>
+                <h1 class="text-4xl font-bold text-white mb-2">NaijaBank</h1>
+                <p class="text-blue-100">Your Trusted Digital Bank</p>
+            </div>
+
+            <div class="bg-white dark:bg-dark-card rounded-2xl shadow-2xl p-8 slide-in">
+                <div id="loginForm">
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6">Welcome Back</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email Address</label>
+                            <input type="email" id="loginEmail" placeholder="you@example.com" 
+                                   class="w-full px-4 py-3 border border-gray-300 dark:border-dark-border dark:bg-dark dark:text-white rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Password</label>
+                            <input type="password" id="loginPassword" placeholder="Enter password" 
+                                   class="w-full px-4 py-3 border border-gray-300 dark:border-dark-border dark:bg-dark dark:text-white rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all">
+                        </div>
+                        <button onclick="Auth.login()" class="w-full bg-primary hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-all transform hover:scale-[1.02] shadow-lg">
+                            Sign In
+                        </button>
+                    </div>
+                    <p class="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
+                        Don't have an account? 
+                        <button onclick="Auth.toggleForm()" class="text-primary font-semibold hover:underline">Register</button>
+                    </p>
+                </div>
+
+                <div id="registerForm" class="hidden-section">
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6">Create Account</h2>
+                    <div class="space-y-3 max-h-[400px] overflow-y-auto custom-scrollbar pr-2">
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">First Name</label>
+                                <input type="text" id="regFirstName" class="w-full px-3 py-2 border border-gray-300 dark:border-dark-border dark:bg-dark dark:text-white rounded-lg focus:ring-2 focus:ring-primary outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Last Name</label>
+                                <input type="text" id="regLastName" class="w-full px-3 py-2 border border-gray-300 dark:border-dark-border dark:bg-dark dark:text-white rounded-lg focus:ring-2 focus:ring-primary outline-none">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
+                            <input type="email" id="regEmail" class="w-full px-3 py-2 border border-gray-300 dark:border-dark-border dark:bg-dark dark:text-white rounded-lg focus:ring-2 focus:ring-primary outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Phone Number</label>
+                            <input type="tel" id="regPhone" placeholder="08012345678" class="w-full px-3 py-2 border border-gray-300 dark:border-dark-border dark:bg-dark dark:text-white rounded-lg focus:ring-2 focus:ring-primary outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">BVN</label>
+                            <input type="text" id="regBvn" placeholder="11-digit BVN" maxlength="11" class="w-full px-3 py-2 border border-gray-300 dark:border-dark-border dark:bg-dark dark:text-white rounded-lg focus:ring-2 focus:ring-primary outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Password</label>
+                            <input type="password" id="regPassword" class="w-full px-3 py-2 border border-gray-300 dark:border-dark-border dark:bg-dark dark:text-white rounded-lg focus:ring-2 focus:ring-primary outline-none">
+                        </div>
+                        <button onclick="Auth.register()" class="w-full bg-secondary hover:bg-green-700 text-white font-semibold py-3 rounded-lg transition-all transform hover:scale-[1.02] shadow-lg mt-2">
+                            Create Account
+                        </button>
+                    </div>
+                    <p class="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
+                        Already have an account? 
+                        <button onclick="Auth.toggleForm()" class="text-primary font-semibold hover:underline">Sign In</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="dashboard" class="hidden">
+        <nav class="bg-white dark:bg-dark-card shadow-sm border-b border-gray-200 dark:border-dark-border sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center mr-3">
+                            <i class="fas fa-university text-white"></i>
+                        </div>
+                        <span class="text-xl font-bold text-gray-800 dark:text-white">NaijaBank</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <button onclick="UI.toggleDarkMode()" class="p-2 text-gray-500 dark:text-gray-400 hover:text-primary transition-colors">
+                            <i id="darkModeIcon" class="fas fa-moon text-xl"></i>
+                        </button>
+                        <button onclick="UI.showNotification()" class="p-2 text-gray-500 dark:text-gray-400 hover:text-primary transition-colors relative">
+                            <i class="fas fa-bell text-xl"></i>
+                            <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+                        </button>
+                        <div class="flex items-center space-x-2 cursor-pointer" onclick="Auth.logout()">
+                            <div class="w-8 h-8 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center">
+                                <i class="fas fa-user text-gray-600 dark:text-gray-300"></i>
+                            </div>
+                            <span class="text-sm font-medium text-gray-700 dark:text-gray-300 hidden sm:block" id="navUserName">User</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                <div class="lg:col-span-2 bg-gradient-to-r from-primary to-blue-600 rounded-2xl p-6 text-white shadow-xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full -mr-20 -mt-20"></div>
+                    <div class="absolute bottom-0 left-0 w-48 h-48 bg-white opacity-5 rounded-full -ml-10 -mb-10"></div>
+                    
+                    <div class="relative z-10">
+                        <div class="flex justify-between items-start mb-6">
+                            <div>
+                                <p class="text-blue-100 text-sm font-medium mb-1">Account Balance</p>
+                                <h2 class="text-4xl font-bold" id="mainBalance">₦0.00</h2>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-blue-100 text-sm">Account Number</p>
+                                <p class="font-mono text-lg" id="accountNumber">0000000000</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-4">
+                                <div class="bg-white/20 backdrop-blur-sm rounded-lg px-3 py-1">
+                                    <span class="text-xs text-blue-100">Free Transfers: </span>
+                                    <span class="font-bold" id="freeTransfersLeft">5</span>
+                                </div>
+                            </div>
+                            <button onclick="UI.showSection('transfer')" class="bg-white text-primary px-4 py-2 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
+                                <i class="fas fa-paper-plane mr-2"></i>Quick Transfer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="bg-white dark:bg-dark-card rounded-2xl p-5 shadow-lg border border-gray-100 dark:border-dark-border">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 dark:text-gray-400 text-sm">This Month</p>
+                                <p class="text-xl font-bold text-gray-800 dark:text-white" id="monthlySpent">₦0.00</p>
+                            </div>
+                            <div class="w-10 h-10 bg-red-100 dark:bg-red-900/30 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-arrow-up text-red-600"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white dark:bg-dark-card rounded-2xl p-5 shadow-lg border border-gray-100 dark:border-dark-border">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 dark:text-gray-400 text-sm">Received</p>
+                                <p class="text-xl font-bold text-gray-800 dark:text-white" id="monthlyReceived">₦0.00</p>
+                            </div>
+                            <div class="w-10 h-10 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-arrow-down text-green-600"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2 space-y-6">
+                    <div class="bg-white dark:bg-dark-card rounded-2xl shadow-lg p-6 border border-gray-100 dark:border-dark-border">
+                        <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-4">Quick Actions</h3>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                            <button onclick="UI.showSection('transfer')" class="flex flex-col items-center p-4 rounded-xl bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors group">
+                                <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                                    <i class="fas fa-exchange-alt text-white"></i>
+                                </div>
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Transfer</span>
+                            </button>
+                            <button onclick="UI.showSection('deposit')" class="flex flex-col items-center p-4 rounded-xl bg-green-50 dark:bg-green-900/20 hover:bg-green-100 dark:hover:bg-green-900/30 transition-colors group">
+                                <div class="w-12 h-12 bg-secondary rounded-full flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                                    <i class="fas fa-plus text-white"></i>
+                                </div>
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Deposit</span>
+                            </button>
+                            <button onclick="UI.showSection('withdraw')" class="flex flex-col items-center p-4 rounded-xl bg-orange-50 dark:bg-orange-900/20 hover:bg-orange-100 dark:hover:bg-orange-900/30 transition-colors group">
+                                <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                                    <i class="fas fa-minus text-white"></i>
+                                </div>
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Withdraw</span>
+                            </button>
+                            <button onclick="UI.showSection('cards')" class="flex flex-col items-center p-4 rounded-xl bg-purple-50 dark:bg-purple-900/20 hover:bg-purple-100 dark:hover:bg-purple-900/30 transition-colors group">
+                                <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                                    <i class="fas fa-credit-card text-white"></i>
+                                </div>
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">My Cards</span>
+                            </button>
+                        </div>
+                    </div>
+                              
+                    <!-- Transfer Form -->
+                    <div id="transferForm" class="hidden-section bg-white dark:bg-dark-card rounded-2xl shadow-lg p-6 border border-gray-100 dark:border-dark-border">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-bold text-gray-800 dark:text-white">Transfer Money</h3>
+                            <button onclick="UI.hideAllForms()" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"><i class="fas fa-times"></i></button>
+                        </div>
+                        
+                        <!-- Transfer Type Tabs -->
+                        <div class="flex space-x-2 mb-4">
+                            <button id="tabInternal" onclick="Transactions.switchTab('internal')" class="flex-1 py-2 px-4 rounded-lg bg-primary text-white font-medium transition-colors">
+                                <i class="fas fa-university mr-2"></i>NaijaBank
+                            </button>
+                            <button id="tabExternal" onclick="Transactions.switchTab('external')" class="flex-1 py-2 px-4 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 font-medium transition-colors hover:bg-gray-200 dark:hover:bg-gray-600">
+                                <i class="fas fa-building-columns mr-2"></i>Other Banks
+                            </button>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <!-- Bank Selection (for external transfers) -->
+                            <div id="bankSelectContainer" class="hidden">
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Select Bank</label>
+                                <select id="bankSelect" onchange="Transactions.onBankChange()" 
+                                        class="w-full px-4 py-2 border border-gray-300 dark:border-dark-border dark:bg-dark dark:text-white rounded-lg focus:ring-2 focus:ring-primary outline-none">
+                                    <option value="">-- Select a Bank --</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Account Number -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Account Number</label>
+                                <div class="flex space-x-2">
+                                    <input type="text" id="transferTo" placeholder="10-digit account number" maxlength="10"
+                                        class="flex-1 px-4 py-2 border border-gray-300 dark:border-dark-border dark:bg-dark dark:text-white rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                                        onblur="Transactions.verifyRecipient()">
+                                    <button onclick="Transactions.verifyRecipient()" class="px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-200">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                                <p id="recipientName" class="text-sm text-green-600 mt-1 hidden"></p>
+                                <p id="recipientBank" class="text-sm text-blue-600 mt-1 hidden"></p>
+                            </div>
+                            
+                            <!-- Amount -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Amount (₦)</label>
+                                <input type="number" id="transferAmount" placeholder="0.00" min="100"
+                                    class="w-full px-4 py-2 border border-gray-300 dark:border-dark-border dark:bg-dark dark:text-white rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                                    oninput="Transactions.calculateCharges()">
+                                <p id="chargeInfo" class="text-xs text-gray-500 dark:text-gray-400 mt-1"></p>
+                            </div>
+                            
+                            <!-- Description -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Description</label>
+                                <input type="text" id="transferDesc" placeholder="What's this for?" 
+                                    class="w-full px-4 py-2 border border-gray-300 dark:border-dark-border dark:bg-dark dark:text-white rounded-lg focus:ring-2 focus:ring-primary outline-none">
+                            </div>
+                            
+                            <!-- PIN -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Transaction PIN (Your Password)</label>
+                                <input type="password" id="transferPin" placeholder="Enter PIN" 
+                                    class="w-full px-4 py-2 border border-gray-300 dark:border-dark-border dark:bg-dark dark:text-white rounded-lg focus:ring-2 focus:ring-primary outline-none">
+                            </div>
+                            
+                            <button onclick="Transactions.processTransfer()" class="w-full bg-primary hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-all">
+                                Send Transfer
+                            </button>
+                        </div>
+                    </div>          
+                           <!--card details-->
+                    <div class="bg-white dark:bg-dark-card rounded-2xl shadow-lg p-6 border border-gray-100 dark:border-dark-border">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-bold text-gray-800 dark:text-white">Recent Transactions</h3>
+                            <button onclick="Transactions.loadHistory()" class="text-primary hover:text-blue-700 text-sm font-medium">
+                                <i class="fas fa-sync-alt mr-1"></i>Refresh
+                            </button>
+                        </div>
+                        <div id="transactionsList" class="space-y-3 max-h-[400px] overflow-y-auto custom-scrollbar pr-2"></div>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-6 text-white shadow-xl relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 rounded-full -mr-10 -mt-10"></div>
+                        <div class="relative z-10">
+                            <div class="flex justify-between items-start mb-8">
+                                <div class="w-12 h-8 bg-yellow-500 rounded flex items-center justify-center">
+                                    <div class="w-8 h-5 border-2 border-yellow-600 rounded-sm"></div>
+                                </div>
+                                <span class="text-lg font-bold italic">NaijaBank</span>
+                            </div>
+                            <div class="mb-6">
+                                <p class="text-gray-400 text-xs mb-1">Account Number</p>
+                                <p class="font-mono text-lg tracking-wider" id="cardAccountNumber">**** **** **** 0000</p>
+                            </div>
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <p class="text-gray-400 text-xs mb-1">Card Holder</p>
+                                    <p class="font-medium" id="cardHolderName">YOUR NAME</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-gray-400 text-xs mb-1">Valid Thru</p>
+                                    <p class="font-mono">12/28</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-50 dark:bg-blue-900/20 rounded-2xl p-5 border border-blue-100 dark:border-blue-800">
+                        <h4 class="font-bold text-gray-800 dark:text-white mb-3">Transfer Charges</h4>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600 dark:text-gray-400">Transfers above ₦10,000</span>
+                                <span class="font-semibold text-red-600">₦50</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600 dark:text-gray-400">After 5 free transfers</span>
+                                <span class="font-semibold text-red-600">₦10</span>
+                            </div>
+                            <div class="flex justify-between border-t border-blue-200 dark:border-blue-800 pt-2">
+                                <span class="text-gray-600 dark:text-gray-400">First 5 transfers</span>
+                                <span class="font-semibold text-green-600">FREE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="fixed bottom-4 right-4 transform translate-y-20 opacity-0 transition-all duration-300 z-50">
+        <div class="bg-gray-800 dark:bg-gray-900 text-white px-6 py-3 rounded-lg shadow-xl flex items-center space-x-3">
+            <i id="toastIcon" class="fas fa-check-circle text-green-400"></i>
+            <span id="toastMessage">Operation successful</span>
+        </div>
+    </div>
+
+    <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4">
+        <div class="bg-white dark:bg-dark-card rounded-2xl shadow-2xl max-w-md w-full p-6 transform scale-95 transition-transform" id="modalContent">
+            <div id="modalBody"></div>
+            <div class="mt-6 flex justify-end">
+                <button onclick="UI.closeModal()" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 dark:text-white hover:bg-gray-300 rounded-lg font-medium transition-colors">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/transactions.js"></script>
+    <script src="js/cards.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
